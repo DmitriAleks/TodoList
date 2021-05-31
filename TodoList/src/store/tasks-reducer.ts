@@ -7,15 +7,22 @@ type RemoveTaskAT = {
     taskID:string
     todoListID: string
 }
-type addTaskAT = {
+type AddTaskAT = {
     type: 'ADD_TASK'
     title: string
     todoListID: string
 }
+type ChangeTaskStatusAT = {
+    type: 'CHANGE_TASK_STATUS'
+    taskID: string
+    newIsDoneValue: boolean
+    todoListID: string
+}
 
-export type ActionUnionType = RemoveTaskAT|addTaskAT
 
-export const tasksReducer = (state: TaskStateType, action: ActionUnionType) => {
+export type ActionUnionType = RemoveTaskAT|AddTaskAT|ChangeTaskStatusAT
+
+export const tasksReducer = (state: TaskStateType, action: ActionUnionType):TaskStateType => {
     switch (action.type) {
         case 'REMOVE_TASK':
             return {
@@ -33,6 +40,13 @@ export const tasksReducer = (state: TaskStateType, action: ActionUnionType) => {
                 [action.todoListID]: [newTask, ...state[action.todoListID]]
 
     }
+        case 'CHANGE_TASK_STATUS':
+
+            return {
+                ...state,
+                [action.todoListID]: state[action.todoListID].map(t => t.id === action.taskID ? {...t, isDone: action.newIsDoneValue} : t)
+
+            }
 
         default:
             return state
@@ -43,10 +57,12 @@ export const tasksReducer = (state: TaskStateType, action: ActionUnionType) => {
 export const removeTaskAC = (taskID:string, todoListID:string):RemoveTaskAT => {
     return {type: 'REMOVE_TASK', taskID, todoListID : todoListID}
 }
-export const addTaskAC = (title: string, todoListID: string):addTaskAT => {
+export const addTaskAC = (title: string, todoListID: string):AddTaskAT => {
     return {type: 'ADD_TASK', title, todoListID}
 }
-
+export const changeTaskStatusAC = (taskID: string, newIsDoneValue: boolean, todoListID: string):ChangeTaskStatusAT => {
+    return {type: 'CHANGE_TASK_STATUS', taskID, newIsDoneValue, todoListID}
+}
 
 
 
