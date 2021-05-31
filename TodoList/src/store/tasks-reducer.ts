@@ -1,5 +1,6 @@
 import {FilterValuesType, TaskStateType, TaskType, TodoListType} from "../App";
 import {v1} from "uuid";
+import {AddTodoListAT} from "./todolists-reducer";
 
 
 type RemoveTaskAT = {
@@ -26,7 +27,7 @@ type ChangeTaskTitleAT = {
 }
 
 
-    export type ActionUnionType = RemoveTaskAT|AddTaskAT|ChangeTaskStatusAT|ChangeTaskTitleAT
+    export type ActionUnionType = RemoveTaskAT|AddTaskAT|ChangeTaskStatusAT|ChangeTaskTitleAT|AddTodoListAT
 
 export const tasksReducer = (state: TaskStateType, action: ActionUnionType):TaskStateType => {
     switch (action.type) {
@@ -44,7 +45,6 @@ export const tasksReducer = (state: TaskStateType, action: ActionUnionType):Task
             return {
                 ...state,
                 [action.todoListID]: [newTask, ...state[action.todoListID]]
-
     }
         case 'CHANGE_TASK_STATUS':
             return {
@@ -56,10 +56,14 @@ export const tasksReducer = (state: TaskStateType, action: ActionUnionType):Task
                 ...state,
                 [action.todoListID]: state[action.todoListID].map(t => t.id === action.taskID ? {...t, title: action.newTitle} : t)
             }
+        case "ADD-TODOLIST":
+            return {
+                ...state,
+                [action.todoListID]: []
+            }
         default:
             return state
     }
-
 }
 
 export const removeTaskAC = (taskID:string, todoListID:string):RemoveTaskAT => {
