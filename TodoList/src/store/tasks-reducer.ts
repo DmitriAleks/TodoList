@@ -2,30 +2,35 @@ import {FilterValuesType, TaskStateType, TodoListType} from "../App";
 import {v1} from "uuid";
 
 
-type FirstAT = {
-    type: ''
+type RemoveTaskAT = {
+    type: 'REMOVE_TASK',
+    taskID:string
+    todoListID: string
 }
 type SecondAT = {
     type: ''
 }
 
-export type ActionUnionType = FirstAT|SecondAT
+export type ActionUnionType = RemoveTaskAT|SecondAT
 
-export const tasksReducer = (todoLists: TaskStateType, action: ActionUnionType): Array<TodoListType> => {
+export const tasksReducer = (state: TaskStateType, action: ActionUnionType) => {
     switch (action.type) {
+        case 'REMOVE_TASK':
+            return {
+        ...state,
+            [action.todoListID] : state[action.todoListID].filter(t => t.id !== action.taskID)
+    }
         case "":
-            return todoLists
-        case "":
-            return todoLists
+            return state
 
         default:
-            return todoLists
+            return state
     }
 
 }
 
-export const firstTaskAC = (todoListID:string):FirstAT => {
-    return {type: ''}
+export const removeTaskAC = (taskID:string, todoListID:string):RemoveTaskAT => {
+    return {type: 'REMOVE_TASK', taskID, todoListID : todoListID}
 }
 export const secondAC = (title:string):SecondAT => {
     return {type: ''}
