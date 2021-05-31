@@ -24,7 +24,7 @@ export const tasksReducer = (todoLists: TaskStateType, action: ActionUnionType):
 
 }
 
-export const firstTasksAC = (todoListID:string):FirstAT => {
+export const firstTaskAC = (todoListID:string):FirstAT => {
     return {type: ''}
 }
 export const secondAC = (title:string):SecondAT => {
