@@ -80,11 +80,14 @@ function AppWithReducer() {
     }
 
     function removeTodoList(todoListID: string) {
+        delete tasks[todoListID]
         dispatchToTodoLists(RemoveTodoListAC(todoListID))
     }
 
     function addTodoList(title: string) {
-        dispatchToTodoLists(AddTodoListAC(title))
+        let action = AddTodoListAC(title)
+        dispatchToTodoLists(action)
+       dispatchToTasks(action)
     }
 
 //UI:
