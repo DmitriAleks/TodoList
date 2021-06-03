@@ -29,7 +29,7 @@ export type TodoListType = {
     title: string
     filter: FilterValuesType
 }
-
+//2/05
 function AppWithReducer() {
 //BLL:
     const todoListID_1 = v1()
@@ -80,8 +80,9 @@ function AppWithReducer() {
     }
 
     function removeTodoList(todoListID: string) {
-        delete tasks[todoListID]
-        dispatchToTodoLists(RemoveTodoListAC(todoListID))
+        let action = RemoveTodoListAC(todoListID)
+        dispatchToTodoLists(action)
+        dispatchToTasks(action)
     }
 
     function addTodoList(title: string) {
