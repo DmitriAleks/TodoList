@@ -26,6 +26,7 @@ type ChangeTaskTitleAT = {
     todoListID: string
 }
 
+let initialState:TaskStateType = {}
 
     export type ActionUnionType = RemoveTaskAT|AddTaskAT|ChangeTaskStatusAT|ChangeTaskTitleAT|AddTodoListAT|RemoveTodoListAT
 
