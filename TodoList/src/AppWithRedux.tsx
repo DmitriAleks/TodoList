@@ -30,7 +30,7 @@ export type TodoListType = {
     filter: FilterValuesType
 }
 //2/05
-function AppWithReducer() {
+function AppWithRedux() {
 //BLL:
     const todoListID_1 = v1()
     const todoListID_2 = v1()
@@ -152,4 +152,4 @@ function AppWithReducer() {
     );
 }
 
-export default AppWithReducer;
+export default AppWithRedux;
