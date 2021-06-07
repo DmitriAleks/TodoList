@@ -28,9 +28,14 @@ type ChangeTaskTitleAT = {
 
 let initialState:TaskStateType = {}
 
+// let initialState = {
+//     '22': []
+// }
+//type initialStateType = typeof initialState
+
     export type ActionUnionType = RemoveTaskAT|AddTaskAT|ChangeTaskStatusAT|ChangeTaskTitleAT|AddTodoListAT|RemoveTodoListAT
 
-export const tasksReducer = (state: TaskStateType, action: ActionUnionType):TaskStateType => {
+export const tasksReducer = (state = initialState, action: ActionUnionType):TaskStateType => {
     switch (action.type) {
         case 'REMOVE_TASK':
             return {
