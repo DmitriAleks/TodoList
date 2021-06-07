@@ -13,6 +13,8 @@ import {
     todoListsReducer
 } from "./state/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./state/store";
 
 export type TaskType = {
     id: string
@@ -31,27 +33,32 @@ export type TodoListType = {
 }
 //2/05
 function AppWithRedux() {
+
 //BLL:
     const todoListID_1 = v1()
     const todoListID_2 = v1()
-    const [todoLists, dispatchToTodoLists] = useReducer(todoListsReducer,[
-        {id: todoListID_1, title: 'what to learn', filter: 'all'},
-        {id: todoListID_2, title: 'what to buy', filter: 'all'}
-    ])
-    const [tasks,  dispatchToTasks] = useReducer(tasksReducer ,{
-        [todoListID_1]: [
-            {id: v1(), title: "HTML", isDone: true},
-            {id: v1(), title: "CSS", isDone: true},
-            {id: v1(), title: "React", isDone: false},
-            {id: v1(), title: "DzIgnata", isDone: false},
-        ],
-        [todoListID_2]: [
-            {id: v1(), title: "Milk", isDone: true},
-            {id: v1(), title: "Beer", isDone: true},
-            {id: v1(), title: "Water", isDone: false},
-            {id: v1(), title: "Cola", isDone: false},
-        ]
-    })
+
+    const todoLists = useSelector<AppRootStateType,TodoListType[]>(state => state.todolists)
+    const tasks = useSelector<AppRootStateType,TaskStateType>(state => state.tasks)
+
+    // const [todoLists, dispatchToTodoLists] = useReducer(todoListsReducer,[
+    //     {id: todoListID_1, title: 'what to learn', filter: 'all'},
+    //     {id: todoListID_2, title: 'what to buy', filter: 'all'}
+    // ])
+    // const [tasks,  dispatchToTasks] = useReducer(tasksReducer ,{
+    //     [todoListID_1]: [
+    //         {id: v1(), title: "HTML", isDone: true},
+    //         {id: v1(), title: "CSS", isDone: true},
+    //         {id: v1(), title: "React", isDone: false},
+    //         {id: v1(), title: "DzIgnata", isDone: false},
+    //     ],
+    //     [todoListID_2]: [
+    //         {id: v1(), title: "Milk", isDone: true},
+    //         {id: v1(), title: "Beer", isDone: true},
+    //         {id: v1(), title: "Water", isDone: false},
+    //         {id: v1(), title: "Cola", isDone: false},
+    //     ]
+    // })
 
     function removeTasks(taskID: string, todoListID: string) {
         dispatchToTasks(removeTaskAC(taskID,todoListID))
