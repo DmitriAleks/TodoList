@@ -1,5 +1,4 @@
-import React, {useReducer, useState} from 'react';
-import {v1} from 'uuid';
+import React from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 import AddItemForm from "./AddItemForm";
@@ -9,10 +8,10 @@ import {
     AddTodoListAC,
     ChangeTodoListFilterAC,
     ChangeTodoListTitleAC,
-    RemoveTodoListAC,
-    todoListsReducer
+    InitialTodoListsStateType,
+    RemoveTodoListAC
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 
@@ -35,10 +34,8 @@ export type TodoListType = {
 function AppWithRedux() {
 
 //BLL:
-    const todoListID_1 = v1()
-    const todoListID_2 = v1()
 
-    const todoLists = useSelector<AppRootStateType,TodoListType[]>(state => state.todolists)
+    const todoLists = useSelector<AppRootStateType,InitialTodoListsStateType>(state => state.todolists)
     const tasks = useSelector<AppRootStateType,TaskStateType>(state => state.tasks)
 
     const dispatch = useDispatch()

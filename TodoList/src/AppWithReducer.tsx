@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useReducer} from 'react';
 import {v1} from 'uuid';
 import './App.css';
 import TodoList from "./TodoList";
@@ -19,9 +19,7 @@ export type TaskType = {
     title: string
     isDone: boolean
 }
-export type TaskStateType = {
-    [key: string]: Array<TaskType>
-}
+
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodoListType = {

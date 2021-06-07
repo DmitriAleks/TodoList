@@ -96,7 +96,6 @@ test('property with todolistId should be deleted', () => {
 
     const endState = tasksReducer(startState, action)
 
-
     const keys = Object.keys(endState);
 
     expect(keys.length).toBe(1);
