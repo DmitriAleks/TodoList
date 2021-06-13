@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 import AddItemForm from "./AddItemForm";
@@ -44,9 +44,9 @@ function AppWithRedux() {
         dispatch(removeTaskAC(taskID,todoListID))
     }
 
-    function addTask(title: string, todoListID: string) {
+    const addTask =useCallback((title: string, todoListID: string) => {
         dispatch(addTaskAC(title,todoListID))
-    }
+    },[])
 
     function changeTaskStatus(taskID: string, newIsDoneValue: boolean, todoListID: string) {
         dispatch(changeTaskStatusAC(taskID,newIsDoneValue,todoListID))
@@ -71,10 +71,10 @@ function AppWithRedux() {
         dispatch(action)
     }
 
-    function addTodoList(title: string) {
+    const addTodoList = useCallback((title: string)=> {
         let action = AddTodoListAC(title)
         dispatch(action)
-    }
+    },[])
 
 //UI:
     function getTasksForTodolist(todoList: TodoListType) {

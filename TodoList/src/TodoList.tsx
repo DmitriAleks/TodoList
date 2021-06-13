@@ -19,7 +19,8 @@ type TodoListPropsType = {
     changeTodoListTitle: (title: string, todoListID: string) => void
 }
 
-function TodoList(props: TodoListPropsType) {
+const TodoList = React.memo((props: TodoListPropsType) => {
+    console.log('Todolist')
     const {filter} = props
     const tasks = props.tasks.map(t => {
         const removeTask = () => {
@@ -95,7 +96,7 @@ function TodoList(props: TodoListPropsType) {
 
     )
 
-}
+})
 
 
 export default TodoList;

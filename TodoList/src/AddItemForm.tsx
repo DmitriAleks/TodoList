@@ -6,7 +6,6 @@ type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
  const AddItemForm = React.memo((props: AddItemFormPropsType) => {
-    console.log('addItem')
     const [title, setTitle] = useState("")
     const [error, setError] = useState<boolean>(false)
     const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
