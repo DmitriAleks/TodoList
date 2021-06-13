@@ -4,6 +4,7 @@ import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EdiatableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {CheckBox, Delete} from "@material-ui/icons";
+import {TodoListType} from "./AppWithRedux";
 
 type TodoListPropsType = {
     todoListID: string
