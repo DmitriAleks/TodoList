@@ -1,4 +1,4 @@
-import React, {useState, KeyboardEvent, ChangeEvent, ChangeEventHandler} from 'react';
+import React, {useState, KeyboardEvent, ChangeEvent, ChangeEventHandler, useCallback} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EdiatableSpan";
@@ -51,7 +51,7 @@ function TodoList(props: TodoListPropsType) {
     const onClickActiveFilter = () => props.changeFilter('active', props.todoListID)
     const onClickCompletedFilter = () => props.changeFilter('completed', props.todoListID)
     const onClickRemoveTodoList = () => props.removeTodoList(props.todoListID)
-    const addTask = (title: string) => props.addTask(title, props.todoListID)
+    const addTask = useCallback((title: string) => props.addTask(title, props.todoListID),[])
     const changeTodoListTitle = (title: string) => props.changeTodoListTitle(title, props.todoListID)
 
 
