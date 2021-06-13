@@ -49,12 +49,14 @@ const TodoList = React.memo((props: TodoListPropsType) => {
         )
     })
 
-    const onClickAllFilter = () => props.changeFilter('all', props.todoListID)
-    const onClickActiveFilter = () => props.changeFilter('active', props.todoListID)
-    const onClickCompletedFilter = () => props.changeFilter('completed', props.todoListID)
-    const onClickRemoveTodoList = () => props.removeTodoList(props.todoListID)
-    const addTask = useCallback((title: string) => props.addTask(title, props.todoListID),[])
-    const changeTodoListTitle = (title: string) => props.changeTodoListTitle(title, props.todoListID)
+//1.55
+    const onClickAllFilter = useCallback(() => props.changeFilter('all', props.todoListID),[])
+    const onClickActiveFilter = useCallback(() => props.changeFilter('active', props.todoListID),[])
+    const onClickCompletedFilter = useCallback(() => props.changeFilter('completed', props.todoListID),[])
+    function onClickRemoveTodoList() {props.removeTodoList(props.todoListID)}
+    function addTask (title: string)  props.addTask(title, props.todoListID)
+    function changeTodoListTitle (title: string) props.changeTodoListTitle(title, props.todoListID)
+
 
 
     return (
