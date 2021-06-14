@@ -61,13 +61,12 @@ const TodoList = React.memo((props: TodoListPropsType) => {
             </li>
         )
     })
-
-    const onClickAllFilter = useCallback(() => props.changeFilter('all', props.todoListID), [])
-    const onClickActiveFilter = useCallback(() => props.changeFilter('active', props.todoListID), [])
-    const onClickCompletedFilter = useCallback(() => props.changeFilter('completed', props.todoListID), [])
-    const onClickRemoveTodoList = useCallback(() => props.removeTodoList(props.todoListID), [])
-    const addTask = useCallback((title: string) => props.addTask(title, props.todoListID), [])
-    const changeTodoListTitle = useCallback((title: string) => props.changeTodoListTitle(title, props.todoListID), [])
+    const addTask = useCallback((title: string) => props.addTask(title, props.todoListID), [props.addTask, props.id])
+    const onClickAllFilter = () => props.changeFilter('all', props.todoListID)
+    const onClickActiveFilter = () => props.changeFilter('active', props.todoListID)
+    const onClickCompletedFilter = () => props.changeFilter('completed', props.todoListID)
+    const onClickRemoveTodoList = () => props.removeTodoList(props.todoListID)
+    const changeTodoListTitle = (title: string) => props.changeTodoListTitle(title, props.todoListID)
 
 
     return (
