@@ -77,26 +77,27 @@ function AppWithRedux() {
     },[])
 
 //UI:
-    function getTasksForTodolist(todoList: TodoListType) {
-        switch (todoList.filter) {
-            case "active":
-                return tasks[todoList.id].filter(t => !t.isDone)
-            case "completed":
-                return tasks[todoList.id].filter(t => t.isDone)
-            default:
-                return tasks[todoList.id]
-        }
-    }
+//     function getTasksForTodolist(todoList: TodoListType) {
+//         switch (todoList.filter) {
+//             case "active":
+//                 return tasks[todoList.id].filter(t => !t.isDone)
+//             case "completed":
+//                 return tasks[todoList.id].filter(t => t.isDone)
+//             default:
+//                 return tasks[todoList.id]
+//         }
+//     }
 
     const todoListsComponents = todoLists.map(tl => {
         return (
             <Grid item >
             <Paper elevation={8} style={{padding: '20px'}}>
                 <TodoList
+                    id={tl.id}
                     key={tl.id}
                     todoListID={tl.id}
                     title={tl.title}
-                    tasks={getTasksForTodolist(tl)}
+                    tasks={tasks[tl.id]}
                     filter={tl.filter}
                     removeTask={removeTasks}
                     changeFilter={changeFilter}
