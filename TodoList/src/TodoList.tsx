@@ -4,7 +4,7 @@ import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EdiatableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
-
+//2/38
 type TodoListPropsType = {
     todoListID: string
     id: string
@@ -61,11 +61,11 @@ const TodoList = React.memo((props: TodoListPropsType) => {
             </li>
         )
     })
-    const addTask = useCallback((title: string) => props.addTask(title, props.todoListID), [props.addTask, props.id])
-    const onClickAllFilter = () => props.changeFilter('all', props.todoListID)
-    const onClickActiveFilter = () => props.changeFilter('active', props.todoListID)
-    const onClickCompletedFilter = () => props.changeFilter('completed', props.todoListID)
-    const onClickRemoveTodoList = () => props.removeTodoList(props.todoListID)
+    const addTask = useCallback((title: string) => props.addTask(title, props.todoListID), [props.addTask, props.todoListID])
+    const onClickAllFilter = useCallback(() => props.changeFilter('all', props.todoListID), [props.changeFilter, props.todoListID])
+    const onClickActiveFilter = useCallback(() => props.changeFilter('active', props.todoListID), [props.changeFilter, props.todoListID])
+    const onClickCompletedFilter = useCallback(() => props.changeFilter('completed', props.todoListID), [props.changeFilter, props.todoListID])
+    const onClickRemoveTodoList = useCallback(() => props.removeTodoList(props.todoListID),[props.removeTodoList,props.todoListID])
     const changeTodoListTitle = (title: string) => props.changeTodoListTitle(title, props.todoListID)
 
 
