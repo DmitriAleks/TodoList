@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import { TaskType} from "./AppWithRedux";
 import EditableSpan from "./EdiatableSpan";
 import { Checkbox, IconButton} from "@material-ui/core";
@@ -14,13 +14,13 @@ type TasksPropsType = {
 
 const Task = React.memo(({task,todoListID,changeTaskStatus,removeTask,changeTaskTitle}: TasksPropsType) => {
   //  const {task,todoListID,changeTaskStatus,removeTask,changeTaskTitle} = props - деструктуризация в (парметрах аналогичная запись)
-    const onTitleChangeHandler = (title: string) => changeTaskTitle(todoListID, title, task.id)
-    const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onTitleChangeHandler = useCallback((title: string) => changeTaskTitle(todoListID, title, task.id),[task.id, todoListID])
+    const onStatusChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         changeTaskStatus(task.id, e.currentTarget.checked,todoListID )
-    }
-    const onClickHandler = () => {
+    },[task.id, todoListID])
+    const onClickHandler = useCallback(() => {
         removeTask(task.id, todoListID)
-    }
+    },[task.id, todoListID])
     return (
         <li>
                 <span className={task.isDone ? 'is-done' : ''}>
