@@ -4,7 +4,7 @@ import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EdiatableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
-//2/38
+
 type TodoListPropsType = {
     todoListID: string
     id: string

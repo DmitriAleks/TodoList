@@ -30,7 +30,7 @@ export type TodoListType = {
     title: string
     filter: FilterValuesType
 }
-//2/05
+
 function AppWithRedux() {
 
 //BLL:
