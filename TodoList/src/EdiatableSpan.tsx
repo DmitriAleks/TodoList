@@ -1,12 +1,12 @@
-import React, {useState, KeyboardEvent, ChangeEvent, ChangeEventHandler} from 'react';
-import {Input, TextField} from "@material-ui/core";
+import React, {useState,  ChangeEvent} from 'react';
+import {Input} from "@material-ui/core";
 
 type EditableSpanPropsType = {
     title: string
     changeTitle: (title: string) => void
 }
 
-const EditableSpan = React.memo ((props: EditableSpanPropsType) => {
+const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     const [title, setTitle] = useState<string>(props.title)
     const [editMode, setEditMode] = useState<boolean>(false)
     const onEditMode = () => setEditMode(true)
@@ -22,8 +22,8 @@ const EditableSpan = React.memo ((props: EditableSpanPropsType) => {
     }
     return (
         editMode
-            ?<Input
-            color={'primary'}
+            ? <Input
+                color={'primary'}
                 value={title}
                 autoFocus
                 onChange={onChangeTitle}
