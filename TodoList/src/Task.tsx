@@ -16,7 +16,7 @@ const Task = React.memo(({task,todoListID,changeTaskStatus,removeTask,changeTask
   //  const {task,todoListID,changeTaskStatus,removeTask,changeTaskTitle} = props - деструктуризация в (парметрах аналогичная запись)
     const onTitleChangeHandler = (title: string) => changeTaskTitle(todoListID, title, task.id)
     const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        changeTaskStatus(todoListID, e.currentTarget.checked, task.id)
+        changeTaskStatus(task.id, e.currentTarget.checked,todoListID )
     }
     const onClickHandler = () => {
         removeTask(task.id, todoListID)
@@ -36,6 +36,6 @@ const Task = React.memo(({task,todoListID,changeTaskStatus,removeTask,changeTask
             </IconButton>
         </li>
     )
-
 })
 export default Task;
+

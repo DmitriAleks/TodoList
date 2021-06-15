@@ -4,6 +4,7 @@ import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EdiatableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
+import Task from "./Task";
 
 type TodoListPropsType = {
     todoListID: string
@@ -36,31 +37,6 @@ const TodoList = React.memo((props: TodoListPropsType) => {
     }
     let newTasks = getTasksForTodolist()
 
-    const tasksJSX = newTasks.map(t => {
-        const removeTask = () => {
-            props.removeTask(t.id, props.todoListID)
-        }
-        const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-            props.changeTaskStatus(t.id, e.currentTarget.checked, props.todoListID)
-        }
-        const changeTaskTitle = (title: string) => props.changeTaskTitle(t.id, title, props.todoListID)
-        return (
-            <li key={t.id}>
-
-                <span className={t.isDone ? 'is-done' : ''}>
-                    <Checkbox
-                        onChange={changeTaskStatus}
-                        checked={t.isDone}
-                        color={'primary'}
-                    />
-                     <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
-                </span>
-                <IconButton onClick={removeTask} color={'secondary'}>
-                    <Delete/>
-                </IconButton>
-            </li>
-        )
-    })
     const addTask = useCallback((title: string) => props.addTask(title, props.todoListID), [props.addTask, props.todoListID])
     const onClickAllFilter = useCallback(() => props.changeFilter('all', props.todoListID), [props.changeFilter, props.todoListID])
     const onClickActiveFilter = useCallback(() => props.changeFilter('active', props.todoListID), [props.changeFilter, props.todoListID])
@@ -80,7 +56,18 @@ const TodoList = React.memo((props: TodoListPropsType) => {
             <AddItemForm addItem={addTask}/>
 
             <ul style={{listStyle: 'none', paddingLeft: '0px'}}>
-                {tasksJSX}
+                {newTasks.map(t => {
+                    return (
+                        <Task
+                            key={t.id}
+                            task={t}
+                            todoListID={props.id}
+                            changeTaskStatus={props.changeTaskStatus}
+                            changeTaskTitle={props.changeTaskTitle}
+                            removeTask={props.removeTask}
+
+                        />)
+                })}
             </ul>
             <div>
                 <Button
