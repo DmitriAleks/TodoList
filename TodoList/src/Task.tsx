@@ -1,44 +1,41 @@
-import React, {ChangeEvent, useCallback} from 'react';
-import {FilterValuesType, TaskType} from "./AppWithRedux";
-import AddItemForm from "./AddItemForm";
+import React, {ChangeEvent} from 'react';
+import { TaskType} from "./AppWithRedux";
 import EditableSpan from "./EdiatableSpan";
-import {Button, Checkbox, IconButton} from "@material-ui/core";
+import { Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 
 type TasksPropsType = {
     task: TaskType
-    todolistId: string
+    todoListID: string
     changeTaskTitle: (taskID: string, newTitle: string, todoListID: string) => void
     changeTaskStatus: (taskID: string, newIsDoneValue: boolean, todoListID: string) => void
     removeTask: (taskID: string, todoListID: string) => void
 }
 
-const Task = React.memo((props: TasksPropsType) => {
-    const changeTaskTitle = (title: string) => props.changeTaskTitle(props.todolistId, title, props.task.id)
-    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        props.changeTaskStatus(props.todolistId, e.currentTarget.checked, props.task.id)
-        const removeTask = () => {
-            props.removeTask(props.task.id, props.todolistId)
-        }
+const Task = React.memo(({task,todoListID,changeTaskStatus,removeTask,changeTaskTitle}: TasksPropsType) => {
+  //  const {task,todoListID,changeTaskStatus,removeTask,changeTaskTitle} = props - деструктуризация в (парметрах аналогичная запись)
+    const onTitleChangeHandler = (title: string) => changeTaskTitle(todoListID, title, task.id)
+    const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        changeTaskStatus(todoListID, e.currentTarget.checked, task.id)
     }
-
+    const onClickHandler = () => {
+        removeTask(task.id, todoListID)
+    }
     return (
         <li>
-
-                <span className={props.task.isDone ? 'is-done' : ''}>
+                <span className={task.isDone ? 'is-done' : ''}>
                     <Checkbox
-                        onChange={changeTaskStatus}
-                        checked={props.task.isDone}
+                        onChange={onStatusChangeHandler}
+                        checked={task.isDone}
                         color={'primary'}
                     />
-                     <EditableSpan title={props.task.title} changeTitle={changeTaskTitle}/>
+                     <EditableSpan title={task.title} changeTitle={onTitleChangeHandler}/>
                 </span>
-            <IconButton onClick={removeTask} color={'secondary'}>
+            <IconButton onClick={onClickHandler} color={'secondary'}>
                 <Delete/>
             </IconButton>
         </li>
     )
 
 })
-
 export default Task;
