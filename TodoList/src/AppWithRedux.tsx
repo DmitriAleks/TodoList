@@ -77,16 +77,6 @@ function AppWithRedux() {
     }, [dispatch])
 
 //UI:
-//     function getTasksForTodolist(todoList: TodoListType) {
-//         switch (todoList.filter) {
-//             case "active":
-//                 return tasks[todoList.id].filter(t => !t.isDone)
-//             case "completed":
-//                 return tasks[todoList.id].filter(t => t.isDone)
-//             default:
-//                 return tasks[todoList.id]
-//         }
-//     }
 
     const todoListsComponents = todoLists.map(tl => {
         return (

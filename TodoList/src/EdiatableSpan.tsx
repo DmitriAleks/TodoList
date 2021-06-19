@@ -1,4 +1,4 @@
-import React, {useState,  ChangeEvent} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 import {Input} from "@material-ui/core";
 
 type EditableSpanPropsType = {

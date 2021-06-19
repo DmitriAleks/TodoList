@@ -5,7 +5,7 @@ import {IconButton, TextField} from "@material-ui/core";
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
- const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+const AddItemForm = React.memo((props: AddItemFormPropsType) => {
     const [title, setTitle] = useState("")
     const [error, setError] = useState<boolean>(false)
     const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ type AddItemFormPropsType = {
                 onChange={onChangeTitle}
                 onKeyPress={onKeyPressAddItem}
                 size={'small'}
-                onBlur={()=>setError(false)}
+                onBlur={() => setError(false)}
             />
 
             <IconButton onClick={onClickAddItem} color={'primary'}>

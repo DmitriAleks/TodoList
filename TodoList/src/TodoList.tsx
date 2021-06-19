@@ -1,8 +1,8 @@
-import React, { useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {FilterValuesType, TaskType} from "./AppWithRedux";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EdiatableSpan";
-import {Button,  IconButton} from "@material-ui/core";
+import {Button, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 import Task from "./Task";
 
