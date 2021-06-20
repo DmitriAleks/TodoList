@@ -1,8 +1,5 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-
-import { Button, ButtonProps } from './Button';
-import AddItemForm, {AddItemFormPropsType} from "../AddItemForm";
 import {action} from "@storybook/addon-actions";
 import Task, {TasksPropsType} from "../Task";
 
@@ -32,7 +29,7 @@ task: {id:'1', title:'JS', isDone:true},
 
 export const TaskIsNotExample = Template.bind({});
 TaskIsNotExample.args = {
-  task: {id:'1', title:'JS', isDone:false},
+  task: {id:'2', title:'HTML', isDone:false},
   todoListID: 'todoListID',
  ...baseArg,
 };
