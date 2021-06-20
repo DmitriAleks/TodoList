@@ -12,22 +12,27 @@ export default {
 
 } as Meta;
 
+
+const changeTaskTitleCallback = action('Change status clicked')
+const   changeTaskStatusCallback = action('Change status clicked')
+const    removeTaskCallback = action('Remove task clicked')
+const baseArg = {
+  changeTaskTitle: changeTaskTitleCallback,
+  changeTaskStatus:changeTaskStatusCallback,
+  removeTask:removeTaskCallback,
+}
 const Template: Story<TasksPropsType> = (args) => <Task {...args} />;
 
-export const TaskExample = Template.bind({});
-TaskExample.args = {
+export const TaskIsExample = Template.bind({});
+TaskIsExample.args = {
 task: {id:'1', title:'JS', isDone:true},
   todoListID: 'todoListID',
-  changeTaskTitle: action('Change status clicked'),
-      changeTaskStatus:action('Change status clicked'),
-    removeTask: action('Remove task clicked'),
+  ...baseArg,
 };
 
 export const TaskIsNotExample = Template.bind({});
 TaskIsNotExample.args = {
   task: {id:'1', title:'JS', isDone:false},
   todoListID: 'todoListID',
-  changeTaskTitle: action('Change status clicked'),
-  changeTaskStatus:action('Change status clicked'),
-  removeTask: action('Remove task clicked'),
+ ...baseArg,
 };
