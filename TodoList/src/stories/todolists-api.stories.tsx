@@ -24,11 +24,9 @@ export const CreateTodolist = () => {
     useEffect(() => {
       todolistApi.createTodo(title)
             .then((res) => {
-                debugger
                 setState(res.data)
             })
             .catch((err) => {
-                debugger
                 setState(err.message)
             })
     }, [])
@@ -42,9 +40,9 @@ export const DeleteTodolist = () => {
        todolistApi.deleteTodos(todolistId)
             .then((res) => {
                 setState(res.data)
+                debugger
             })
             .catch((err) => {
-                debugger
                 setState(err.message)
             })
     }, [])
@@ -55,7 +53,7 @@ export const UpdateTodolistTitle = () => {
     useEffect(() => {
         let endpoint = 'd2747144-3fdf-43ee-abe3-efdd3c280ffc'
         let title = 'Changed TodoII'
-        todolistApi.updateTodosTitle(endpoint,title)
+        todolistApi.updateTodoTitle(endpoint,title)
             .then((res) => {
                 setState(res.data)
             })
