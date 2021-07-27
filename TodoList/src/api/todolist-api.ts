@@ -23,21 +23,6 @@ export type TodoType =  {
     addedDate: string,
     order: number,
 }
-// export type CreateTodoResponseType = {
-//     data: {
-//         item: TodoType
-//     } ,
-//     fieldsErrors: Array<string>,
-//     messages: Array<string>,
-//     resultCode: number,
-// }
-// export type UpdateDeleteTodoResponseType = {
-//     resultCode: number
-//     messages: Array<string>,
-//     fieldsErrors: Array<string>,
-//     data: {}
-// }
-
 
 export const todolistApi = {
     getTodos() {
@@ -53,3 +38,4 @@ export const todolistApi = {
        return instance.put<CommonResponseType>(`todo-lists/${todolistId}`, {title} )
     },
 }
+
