@@ -56,6 +56,21 @@ export const ChangeTodoListTitleAC = (title:string,todoListID:string):ChangeTodo
 export const ChangeTodoListFilterAC = (filter:FilterValuesType,todoListID:string):ChangeTodoListFilterAT => {
     return {type: 'CHANGE-TODOLIST-FILTER', filter: filter, todoListID:todoListID }
 }
+export type SetTodolistsActionType = {
+    type: 'SET-TODOLISTS'
+    todolists: Array<TodolistType>
+}
+
+export const setTodolistsAC = (todolists: Array<TodolistType>): SetTodolistsActionType => {
+    return {type: 'SET-TODOLISTS', todolists}
+}
+
+case 'SET-TODOLISTS': {
+    return action.todolists.map(tl => ({
+        ...tl,
+        filter: 'all'
+    }))
+}
 
 
 
