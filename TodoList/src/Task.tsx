@@ -1,41 +1,38 @@
-import React, {ChangeEvent, useCallback} from 'react';
-import {TaskType} from "./AppWithRedux";
-import EditableSpan from "./EdiatableSpan";
-import {Checkbox, IconButton} from "@material-ui/core";
-import {Delete} from "@material-ui/icons";
+import React, {ChangeEvent, useCallback} from 'react'
+import {Checkbox, IconButton} from '@material-ui/core'
+import {EditableSpan} from './EditableSpan'
+import {Delete} from '@material-ui/icons'
+import {TaskStatuses, TaskType} from './api/todolists-api'
 
-export type TasksPropsType = {
+type TaskPropsType = {
     task: TaskType
-    todoListID: string
-    changeTaskTitle: (taskID: string, newTitle: string, todoListID: string) => void
-    changeTaskStatus: (taskID: string, newIsDoneValue: boolean, todoListID: string) => void
-    removeTask: (taskID: string, todoListID: string) => void
+    todolistId: string
+    changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
+    changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
+    removeTask: (taskId: string, todolistId: string) => void
 }
+export const Task = React.memo((props: TaskPropsType) => {
+    const onClickHandler = useCallback(() => props.removeTask(props.task.id, props.todolistId), [props.task.id, props.todolistId]);
 
-const Task = React.memo(({task, todoListID, changeTaskStatus, removeTask, changeTaskTitle}: TasksPropsType) => {
-    //  const {task,todoListID,changeTaskStatus,removeTask,changeTaskTitle} = props - деструктуризация в (парметрах аналогичная запись)
-    const onTitleChangeHandler = useCallback((title: string) => changeTaskTitle(todoListID, title, task.id), [task.id, changeTaskTitle, todoListID])
-    const onStatusChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        changeTaskStatus(task.id, e.currentTarget.checked, todoListID)
-    }, [task.id, changeTaskStatus, todoListID])
-    const onClickHandler = useCallback(() => {
-        removeTask(task.id, todoListID)
-    }, [task.id, removeTask, todoListID])
-    return (
-        <li>
-                <span className={task.isDone ? 'is-done' : ''}>
-                    <Checkbox
-                        onChange={onStatusChangeHandler}
-                        checked={task.isDone}
-                        color={'primary'}
-                    />
-                     <EditableSpan title={task.title} changeTitle={onTitleChangeHandler}/>
-                </span>
-            <IconButton onClick={onClickHandler} color={'secondary'}>
-                <Delete/>
-            </IconButton>
-        </li>
-    )
+    const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        let newIsDoneValue = e.currentTarget.checked
+        props.changeTaskStatus(props.task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId)
+    }, [props.task.id, props.todolistId]);
+
+    const onTitleChangeHandler = useCallback((newValue: string) => {
+        props.changeTaskTitle(props.task.id, newValue, props.todolistId)
+    }, [props.task.id, props.todolistId]);
+
+    return <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? 'is-done' : ''}>
+        <Checkbox
+            checked={props.task.status === TaskStatuses.Completed}
+            color="primary"
+            onChange={onChangeHandler}
+        />
+
+        <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
+        <IconButton onClick={onClickHandler}>
+            <Delete/>
+        </IconButton>
+    </div>
 })
-export default Task;
-
