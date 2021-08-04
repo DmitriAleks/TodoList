@@ -37,6 +37,10 @@ type ActionsType = RemoveTaskActionType | AddTaskActionType
     | setTodolistsACType
 
 const initialState: TasksStateType = {
+    // 'id1': [],
+    // 'id2': [],
+    // 'id3': [],
+
     /*"todolistId1": [
         { id: "1", title: "CSS", status: TaskStatuses.New, todoListId: "todolistId1", description: '',
             startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low },
@@ -58,6 +62,12 @@ const initialState: TasksStateType = {
 
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
     switch (action.type) {
+        case "SET-TODOLIST-AC": {
+            action.todolists.forEach((tl)=>{
+                state[tl.id] = []
+            })
+            return state
+        }
         case 'REMOVE-TASK': {
             const stateCopy = {...state}
             const tasks = stateCopy[action.todolistId];
