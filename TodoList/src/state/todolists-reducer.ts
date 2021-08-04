@@ -21,19 +21,32 @@ type ChangeTodoListFilterAT = {
     filter: FilterValuesType
     todoListID:string
 }
-// type SetTodolistTypeAT = ReturnType<typeof setTodolistAC>
-type SetTodolistTypeAT = {
-    type:'SET-TODOLIST'
-}
+type SetTodolistTypeAT = ReturnType<typeof setTodolistAC>
+// type SetTodolistTypeAT = {
+//     type:'SET-TODOLIST'
+// }
 
 export type ActionUnionType = RemoveTodoListAT|AddTodoListAT|ChangeTodoListTitleAT|ChangeTodoListFilterAT|SetTodolistTypeAT
+type FilterValueType = 'all'|'active'|'completed'
 
-// let initialState:Array<TodoListType> = []
-let initialState:Array<TodoListType> = [] as Array<TodoListType>
-    export type InitialTodoListsStateType =  typeof initialState
+export type TodolistDomainType = TodoListType & {
+    filter :FilterValueType
+}
+let initialState:Array<TodolistDomainType> = []
+// let initialState:Array<TodoListType> = [] as Array<TodoListType>
+//     export type InitialTodoListsStateType =  typeof initialState
 
-export const todoListsReducer = (state= initialState, action: ActionUnionType):InitialTodoListsStateType => {
+export const todoListsReducer = (state= initialState, action: ActionUnionType):Array<TodolistDomainType> => {
     switch (action.type) {
+        case "SET-TODOLIST":
+          let newTodos = action.todoLists.map((tl)=>{
+              return {...tl, filter: 'all'}
+          })
+            return [...state, ...newTodos]
+            // let newTodos = action.todoLists.map((tl)=>{
+            //     return {...tl, filter: 'all'}
+            // })
+            //  return [...state, ...newTodos]
         case "REMOVE-TODOLIST":
             return state.filter(tl => tl.id !== action.todoListID)
         case "ADD-TODOLIST":
@@ -61,8 +74,11 @@ export const ChangeTodoListTitleAC = (title:string,todoListID:string):ChangeTodo
 export const ChangeTodoListFilterAC = (filter:FilterValuesType,todoListID:string):ChangeTodoListFilterAT => {
     return {type: 'CHANGE-TODOLIST-FILTER', filter: filter, todoListID:todoListID }
 }
-export const setTodolistAC = ():SetTodolistTypeAT => {
-    return {type: 'SET-TODOLIST'}
+export const setTodolistAC = (todoLists:Array<TodoListType>) => {
+    return {
+        type: 'SET-TODOLIST',
+        todoLists,
+    } as const
 }
 
 

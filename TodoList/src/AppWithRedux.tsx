@@ -8,8 +8,7 @@ import {
     AddTodoListAC,
     ChangeTodoListFilterAC,
     ChangeTodoListTitleAC,
-    InitialTodoListsStateType,
-    RemoveTodoListAC
+    RemoveTodoListAC, setTodolistAC, TodolistDomainType
 } from "./state/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -27,23 +26,24 @@ export type TaskStateType = {
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodoListType = {
-    id: string
-    title: string
-    filter: FilterValuesType
+    id: string,
+    title: string,
+    addedDate: string,
+    order: number
 }
 
 function AppWithRedux() {
 
-    useEffect(()=>{
+    useEffect(() => {
         todolistApi.getTodos()
-            .then((res)=>{
-                let todos = res.data
+            .then((res) => {
+                dispatch(setTodolistAC(res.data))
             })
     })
 
 //BLL:
 
-    const todoLists = useSelector<AppRootStateType, InitialTodoListsStateType>(state => state.todolists)
+    const todoLists = useSelector<AppRootStateType, TodolistDomainType>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
 
     const dispatch = useDispatch()
