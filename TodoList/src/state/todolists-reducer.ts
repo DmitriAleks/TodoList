@@ -21,7 +21,12 @@ type ChangeTodoListFilterAT = {
     filter: FilterValuesType
     todoListID:string
 }
-export type ActionUnionType = RemoveTodoListAT|AddTodoListAT|ChangeTodoListTitleAT|ChangeTodoListFilterAT
+// type SetTodolistTypeAT = ReturnType<typeof setTodolistAC>
+type SetTodolistTypeAT = {
+    type:'SET-TODOLIST'
+}
+
+export type ActionUnionType = RemoveTodoListAT|AddTodoListAT|ChangeTodoListTitleAT|ChangeTodoListFilterAT|SetTodolistTypeAT
 
 // let initialState:Array<TodoListType> = []
 let initialState:Array<TodoListType> = [] as Array<TodoListType>
@@ -56,20 +61,8 @@ export const ChangeTodoListTitleAC = (title:string,todoListID:string):ChangeTodo
 export const ChangeTodoListFilterAC = (filter:FilterValuesType,todoListID:string):ChangeTodoListFilterAT => {
     return {type: 'CHANGE-TODOLIST-FILTER', filter: filter, todoListID:todoListID }
 }
-export type SetTodolistsActionType = {
-    type: 'SET-TODOLISTS'
-    todolists: Array<TodolistType>
-}
-
-export const setTodolistsAC = (todolists: Array<TodolistType>): SetTodolistsActionType => {
-    return {type: 'SET-TODOLISTS', todolists}
-}
-
-case 'SET-TODOLISTS': {
-    return action.todolists.map(tl => ({
-        ...tl,
-        filter: 'all'
-    }))
+export const setTodolistAC = ():SetTodolistTypeAT => {
+    return {type: 'SET-TODOLIST'}
 }
 
 
