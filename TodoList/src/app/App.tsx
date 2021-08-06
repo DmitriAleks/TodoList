@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react'
 import './App.css';
-import {AddItemForm} from './AddItemForm';
+import {AddItemForm} from '../components/addItemForm/AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
 import {
@@ -11,7 +11,7 @@ import {
     FilterValuesType,
     removeTodolistAC,
     TodolistDomainType
-} from './state/todolists-reducer'
+} from '../state/todolists-reducer'
 import {
 
     addTaskTC,
@@ -19,11 +19,11 @@ import {
     changeTaskTitleAC,
     removeTaskTC,
     updateTaskStatusTC, updateTaskTitleTC
-} from './state/tasks-reducer';
+} from '../state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from './state/store';
-import {TaskStatuses, TaskType,} from './api/todolists-api'
-import {Todolist} from './Todolist';
+import {AppRootStateType} from './store';
+import {TaskStatuses, TaskType,} from '../api/todolists-api'
+import {Todolist} from '../Todolist';
 
 
 export type TasksStateType = {
@@ -124,5 +124,4 @@ function App() {
         </div>
     );
 }
-
-export default App;
+export default App
