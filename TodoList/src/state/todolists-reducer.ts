@@ -100,23 +100,29 @@ export const setTodolistsAC = (todolists: Array<TodolistType>) => {
     } as const
 }
 //THUNKS
-export  const fetchTodolistsTC = () => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+export const fetchTodolistsTC = () => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     todolistsAPI.getTodolists()
         .then((res) => {
             dispatch(setTodolistsAC(res.data))
         })
 }
-
-export const createTodolistTC = (title: string) => (dispatch: Dispatch) =>{
+export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
     todolistsAPI.createTodolist(title)
-        .then((res)=>{
+        .then((res) => {
+            debugger
             dispatch(addTodolistAC(title))
         })
 }
-export const deleteTodolistTC = (todolistId: string) => (dispatch: Dispatch) =>{
+export const deleteTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
     todolistsAPI.deleteTodolist(todolistId)
-        .then((res)=>{
+        .then((res) => {
             dispatch(removeTodolistAC(todolistId))
+        })
+}
+export const changedTitleTodolistTC = (todolistId: string, title: string) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    todolistsAPI.updateTodolist(todolistId, title)
+        .then((res) => {
+            dispatch(changeTodolistTitleAC(todolistId, title))
         })
 }
 

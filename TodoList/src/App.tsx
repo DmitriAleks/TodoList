@@ -4,7 +4,7 @@ import {AddItemForm} from './AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
 import {
-    addTodolistAC,
+    addTodolistAC, changedTitleTodolistTC,
     changeTodolistFilterAC,
     changeTodolistTitleAC, createTodolistTC, deleteTodolistTC,
     fetchTodolistsTC,
@@ -69,8 +69,7 @@ function App() {
     }, []);
 
     const changeTodolistTitle = useCallback(function (id: string, title: string) {
-        const action = changeTodolistTitleAC(id, title);
-        dispatch(action);
+        dispatch(changedTitleTodolistTC(id,title))
     }, []);
 
     const addTodolist = useCallback((title: string) => {
