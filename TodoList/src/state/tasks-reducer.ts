@@ -161,14 +161,11 @@ export const addTaskTC = (todolistId: string, taskTitile: string) => (dispatch: 
         })
 }
 export const updateTaskStatusTC = (todolistId: string, taskId: string, status: TaskStatuses) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
-
-    const appState = getState();
-    const allTask = appState.tasks
-    const taskForClickedTodo = allTask[todolistId]
-    const needTask = taskForClickedTodo.find((el) => el.id === taskId)
-
-    //  const model: UpdateTaskModelType = {...needTask, status}
-
+    const needTask = getState().tasks[todolistId].find((t) => t.id === taskId)
+    // const appState = getState();
+    // const allTask = appState.tasks
+    // const taskForClickedTodo = allTask[todolistId]
+    // const needTask = taskForClickedTodo.find((t) => t.id === taskId)
     if (needTask) {
         const model: UpdateTaskModelType = {
             title: needTask.title,
@@ -183,6 +180,21 @@ export const updateTaskStatusTC = (todolistId: string, taskId: string, status: T
                 dispatch(changeTaskStatusAC(taskId, status, todolistId))
             })
     }
-
-
+}
+export const updateTaskTitleTC = (todolistId: string, taskId: string, title: string) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    const needTask = getState().tasks[todolistId].find((t) => t.id === taskId)
+    if (needTask) {
+        const model: UpdateTaskModelType = {
+            title,
+            status: needTask.status,
+            deadline: needTask.deadline,
+            description: needTask.description,
+            priority: needTask.priority,
+            startDate: needTask.startDate,
+        }
+        todolistsAPI.updateTask(todolistId, taskId, model)
+            .then((res) => {
+                dispatch(changeTaskTitleAC(taskId, title, todolistId))
+            })
+    }
 }
