@@ -6,7 +6,7 @@ import {Menu} from '@material-ui/icons';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleAC, createTodolistTC, deleteTodolistTC,
     fetchTodolistsTC,
     FilterValuesType,
     removeTodolistAC,
@@ -63,8 +63,9 @@ function App() {
     }, []);
 
     const removeTodolist = useCallback(function (id: string) {
-        const action = removeTodolistAC(id);
-        dispatch(action);
+       // const action = removeTodolistAC(id);
+        dispatch(deleteTodolistTC(id))
+        // dispatch(action);
     }, []);
 
     const changeTodolistTitle = useCallback(function (id: string, title: string) {
@@ -73,8 +74,9 @@ function App() {
     }, []);
 
     const addTodolist = useCallback((title: string) => {
-        const action = addTodolistAC(title);
-        dispatch(action);
+        //const action = addTodolistAC(title);
+        dispatch(createTodolistTC(title));
+       // dispatch(action);
     }, [dispatch]);
 
     return (
