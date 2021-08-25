@@ -1,4 +1,4 @@
-import {todolistsAPI, TodolistType} from '../../api/todolists-api'
+import {TaskType, todolistsAPI, TodolistType} from '../../api/todolists-api'
 import {Dispatch} from 'redux'
 import {
     RequestStatusType,
@@ -7,6 +7,8 @@ import {
     setAppStatusAC,
     SetAppStatusType
 } from '../../app/app-reducer'
+import {AxiosError} from "axios";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -79,7 +81,7 @@ export const removeTodolistTC = (todolistId: string) => {
             })
     }
 }
-//3-10
+
 export const addTodolistTC = (title: string) => {
     return (dispatch: Dispatch<ActionsType>) => {
         dispatch(setAppStatusAC('loading'))
@@ -89,14 +91,19 @@ export const addTodolistTC = (title: string) => {
                     dispatch(addTodolistAC(res.data.data.item))
                     dispatch(setAppStatusAC('succeeded'))
                 } else {
-                    if (res.data.messages.length) {
-                        dispatch(setAppErrorAC(res.data.messages[0]))
-                    } else {
-                        dispatch(setAppErrorAC('Неизвестная ошибка, свяжитесь с администрацией'))
-                    }
-                    dispatch(setAppStatusAC('failed'))
+                    handleServerAppError<{item:TodolistType}>(dispatch,res.data)
+                    // if (res.data.messages.length) {
+                    //     dispatch(setAppErrorAC(res.data.messages[0]))
+                    // } else {
+                    //     dispatch(setAppErrorAC('Неизвестная ошибка, свяжитесь с администрацией'))
+                    // }
+                    // dispatch(setAppStatusAC('failed'))
                 }
-
+            })
+            .catch((err:AxiosError)=>{
+                handleServerNetworkError(dispatch, err.message)
+                // dispatch(setAppErrorAC(err.message))
+                // dispatch(setAppStatusAC('failed'))
             })
     }
 }
