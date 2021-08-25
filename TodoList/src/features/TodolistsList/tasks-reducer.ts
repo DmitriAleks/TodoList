@@ -3,6 +3,7 @@ import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelTyp
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
 import {setAppErrorAC, SetAppErrorACType, setAppStatusAC, SetAppStatusType} from "../../app/app-reducer";
+import { AxiosError } from 'axios';
 
 const initialState: TasksStateType = {}
 
@@ -67,24 +68,35 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
             dispatch(setAppStatusAC("succeeded"))
         })
 }
+enum ResponsesStatuses {
+    succeeded = 0,
+    error = 1,
+    captcha = 10,
+}
+
+
 export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResponsesStatuses.succeeded) {
                 const task = res.data.data.item
                 const action = addTaskAC(task)
                 dispatch(action)
-                dispatch(setAppStatusAC('succeeded'))
+
             } else {
                 if(res.data.messages.length) {
                     dispatch(setAppErrorAC(res.data.messages[0]))
                 } else {
                     dispatch(setAppErrorAC('Неизвестная ошибка, свяжитесь с администрацией'))
                 }
-                dispatch(setAppStatusAC('failed'))
             }
-
+        })
+        .catch((err:AxiosError)=>{
+            dispatch(setAppErrorAC(err.message))
+        })
+        .finally(()=>{
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) =>
