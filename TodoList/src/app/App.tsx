@@ -16,6 +16,8 @@ type PropsType = {
 
 function App({demo = false}: PropsType) {
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
+
+
     return (
         <div className="App">
             <ErrorSnackbar/>
