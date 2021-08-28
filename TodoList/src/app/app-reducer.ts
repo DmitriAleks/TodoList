@@ -34,21 +34,25 @@ export const setAppStatusAC = (status:  RequestStatusType) => ({ type: 'APP/SET-
 export const setIsInitializedAC = (isInitialized:  boolean) => ({ type: 'APP/SET-INITIALIZED', isInitialized } as const)
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
-export type SetIsInitializedACActionType = ReturnType<typeof setIsInitializedAC>
+export type SetAppIsInitializedACActionType = ReturnType<typeof setIsInitializedAC>
 type ActionsType =
     | SetAppErrorActionType
     | SetAppStatusActionType
-|SetIsInitializedACActionType
+|SetAppIsInitializedACActionType
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
         debugger
         if (res.data.resultCode === 0) {
             dispatch(setIsLoggedInAC(true));
-            dispatch(setIsInitializedAC(true));
+
         } else {
             handleServerAppError(res.data, dispatch);
         }
-    })
+    }).catch()
+        .finally(()=>{
+            dispatch(setIsInitializedAC(true));
+            }
+        )
 }
 
