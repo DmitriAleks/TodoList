@@ -17,10 +17,13 @@ type PropsType = {
 function App({demo = false}: PropsType) {
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
+    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
 useEffect(()=>{
     dispatch(initializeAppTC())
 },[])
-
+if(!isInitialized){
+    return <h1 style={{fontSize: '50px', textAlign: 'center'}}>loading...</h1>
+}
     return (
         <div className="App">
             <ErrorSnackbar/>

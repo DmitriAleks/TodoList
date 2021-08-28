@@ -39,13 +39,17 @@ export const todolistsAPI = {
         return instance.put<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model);
     }
 }
-
+type ResponseMeType = {
+    id: number
+    email: string
+    login:string
+}
 export const authAPI = {
     login(data:LoginParamsType) {
       return  instance.post<ResponseType<{userId:number}>>(`auth/login`, data);
     },
     me(){
-        return instance.get(`auth/me`)
+        return instance.get<ResponseType<ResponseMeType>>(`auth/me`)
     }
 }
 
