@@ -38,8 +38,15 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
         .catch((error) => {
             handleServerNetworkError(error, dispatch)
         })
-
-
+}
+export const initializeAppTC = () => (dispatch: Dispatch) => {
+    authAPI.me().then(res => {
+        debugger
+        if (res.data.resultCode === 0) {
+            dispatch(setIsLoggedInAC(true));
+        } else {
+        }
+    })
 }
 
 // types
