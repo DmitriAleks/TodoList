@@ -9,7 +9,7 @@ import {AppRootStateType} from './store'
 import {initializeAppTC, RequestStatusType} from './app-reducer'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {Login} from "../features/Login/Login";
-import { logoutTC } from '../features/Login/auth-reducer'
+import {logoutTC} from '../features/Login/auth-reducer'
 
 type PropsType = {
     demo?: boolean
@@ -19,16 +19,16 @@ function App({demo = false}: PropsType) {
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
     const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state=> state.auth.isLoggedIn)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const logoutHandler = () => {
         dispatch(logoutTC())
     }
-useEffect(()=>{
-    dispatch(initializeAppTC())
-},[])
-if(!isInitialized){
-    return <h1 style={{fontSize: '50px', textAlign: 'center'}}>loading...</h1>
-}
+    useEffect(() => {
+        dispatch(initializeAppTC())
+    }, [])
+    if (!isInitialized) {
+        return <h1 style={{fontSize: '50px', textAlign: 'center'}}>loading...</h1>
+    }
     return (
         <div className="App">
             <ErrorSnackbar/>
@@ -40,7 +40,7 @@ if(!isInitialized){
                     <Typography variant="h6">
                         News
                     </Typography>
-                    {isLoggedIn &&  <Button onClick={logoutHandler} color="inherit">Logout</Button>}
+                    {isLoggedIn && <Button onClick={logoutHandler} color="inherit">Logout</Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>

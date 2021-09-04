@@ -76,7 +76,8 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
     if (!isLoggedIn) {
         return <Redirect to={'/login'}/>
-    };
+    }
+    ;
 
     return <>
         <Grid container style={{padding: '20px'}}>
