@@ -45,7 +45,6 @@ export type SetAppIsInitializedACActionType = ReturnType<typeof setIsInitialized
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
-        debugger
         if (res.data.resultCode === 0) {
             dispatch(setIsLoggedInAC({value:true}));
 
